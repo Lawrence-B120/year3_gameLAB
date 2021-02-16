@@ -2,6 +2,7 @@
 #include <iostream>
 #include "ship.h"
 #include "game.h"
+#include "bullet.h"
 
 using namespace sf;
 using namespace std;
@@ -10,6 +11,7 @@ sf::Texture spritesheet;
 sf::Sprite invader;
 
 std::vector<Ship*> ships;
+Player* player;
 int heightCount = 10;
 int widthCount = 32;
 
@@ -53,7 +55,7 @@ void Load() {
 		}
 	}
 
-	Player* player = new Player();
+	player = new Player();
 	ships.push_back(player);
 	
 	//Important note, we used the New() operator here, which created the ship on the heap.If we wanted a stack version, 
@@ -71,13 +73,14 @@ void Update(RenderWindow& window) {
 	for (auto& s : ships) {
 		s->Update(dt);
 	}
-	
+	Bullet::Update(dt);
 }
 
 void Render(RenderWindow& window) {
 	for (const auto s : ships) {
 		window.draw(*s);
 	}
+	Bullet::Render(window);
 }
 
 int main(){

@@ -1,5 +1,6 @@
 #include "ship.h"
 #include "game.h"
+#include "bullet.h"
 using namespace sf;
 using namespace std;
 
@@ -10,9 +11,11 @@ float Invader::speed = 1.0f;
 float Player::speed;
 
 
-const Keyboard::Key controls[2] = {
+
+const Keyboard::Key controls[3] = {
 	Keyboard::A,  //player Left
 	Keyboard::D,   //player Right
+	Keyboard::W,   //Fire
 };
 
 Ship::Ship(IntRect ir) : Sprite() {
@@ -44,6 +47,15 @@ void Invader::Update(const float& dt) {
 			ships[i]->move(0, 24.0f);
 		}
 	}
+
+	static float fireTime = 0.0f;
+	fireTime -= dt;
+
+	if (fireTime <= 0 && rand() % 100 == 0)
+	{
+		Bullet::Fire(Vector2f(getPosition().x, getPosition().y - 20), true);
+		fireTime = 4.0f + (rand() % 60);
+	}
 }
 
 Player::Player() : Ship(IntRect(160, 32, 32, 32)) {
@@ -51,7 +63,21 @@ Player::Player() : Ship(IntRect(160, 32, 32, 32)) {
 }
 
 void Player::Update(const float& dt) { 
-	Ship::Update(dt);					//key movement
+	Ship::Update(dt);		
+	static float fireTime = 0.0f;
+	fireTime -= dt;
+	//static vector<Bullet*> bullets;
+	if (fireTime <= 0 && Keyboard::isKeyPressed(controls[2])) {
+		//bullets.push_back(new Bullet(getPosition(), false));
+		Bullet::Fire(Vector2f(getPosition().x, getPosition().y - 20), false);
+		fireTime = 0.7f;
+	}
+	//for (const auto s : bullets) {
+	//	bullets.Update(dt);
+	//}
+	
+	
+	//key movement
 	if (Keyboard::isKeyPressed(controls[0])) {
 		speed = -3.0f;
 	}
@@ -59,18 +85,25 @@ void Player::Update(const float& dt) {
 		speed = 3.0f;
 	}
 
-	
 	if ((getPosition().x < gameWidth - 32) && getPosition().x > 16) { //applying speed & boundary setting
-		ships[ships.size() - 1]->move(speed, 0);
-		
+		ships[ships.size() - 1]->move(speed, 0);	
 	}
 	else if (getPosition().x > gameWidth - 32) {
 		ships[ships.size() - 1]->setPosition(getPosition().x - 30, getPosition().y);
 	}
-	else
-	{
+	else {
 		ships[ships.size() - 1]->setPosition(getPosition().x + 20, getPosition().y);
 	}
 	
 	
+}
+
+bool Ship::is_exploded() const
+{
+	return false;
+}
+
+void Ship::Explode() {
+	setTextureRect(IntRect(128, 32, 32, 32));
+	_exploded = true;
 }
