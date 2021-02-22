@@ -45,3 +45,9 @@ set_target_properties(PRACTICAL_3_spaceinvaders
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration)
 )
 add_dependencies(PRACTICAL_3_spaceinvaders copy_resources)
+
+#### Practical 4 ####
+file(GLOB_RECURSE SOURCES practical_4_Tilemap/*.cpp practical_4_Tilemap/*.h)
+add_executable(PRACTICAL_4_Tilemap ${SOURCES})
+target_include_directories(PRACTICAL_4_Tilemap PRIVATE ${SFML_INCS})
+target_link_libraries(PRACTICAL_4_Tilemap sfml-graphics)
