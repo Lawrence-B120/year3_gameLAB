@@ -11,8 +11,25 @@ const Keyboard::Key controls[4] = {
 
 void Player::Update(double dt) {
     //Move in four directions based on keys
-    ...
-
+    auto pos = getPosition();
+    if (Keyboard::isKeyPressed(controls[0])) { //left
+        _speed = -3.0f * dt;
+        pos.x += _speed;
+    }
+    if (Keyboard::isKeyPressed(controls[1])) { //right
+        _speed = 0.10f;
+        pos.x += _speed;
+    }
+    if (Keyboard::isKeyPressed(controls[2])) { //up
+        _speed = -3.0f * dt;
+        pos.y += _speed;
+    }
+    if (Keyboard::isKeyPressed(controls[3])) { //down
+        _speed = 3.0f * dt;
+        pos.y += _speed;
+    }
+    
+    move(pos);
         Entity::Update(dt);
 }
 

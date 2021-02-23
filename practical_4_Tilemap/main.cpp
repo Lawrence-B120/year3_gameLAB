@@ -1,9 +1,15 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include "player.h"
+
+using namespace sf;
+
+std::unique_ptr<Player> player{ new Player };
 
 int main(){
-  sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-  sf::CircleShape shape(100.f);
-  shape.setFillColor(sf::Color::Green);
+  sf::RenderWindow window(sf::VideoMode(800, 600), "Tile Maze");
+  static Clock clock;
+  float dt = clock.restart().asSeconds();
 
   while (window.isOpen()){
       sf::Event event;
@@ -12,8 +18,12 @@ int main(){
         window.close();
       }
     }
+
+      
+    player->Update(dt);
+    
     window.clear();
-    window.draw(shape);
+    player->Render(window);
     window.display();
   }
   return 0;
