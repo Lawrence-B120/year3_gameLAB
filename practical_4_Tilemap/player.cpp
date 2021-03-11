@@ -11,26 +11,27 @@ const Keyboard::Key controls[4] = {
 
 void Player::Update(double dt) {
     //Move in four directions based on keys
-    auto pos = getPosition();
+    //auto pos = getPosition();
+    auto pos = Vector2f(0, 0); //before i was adding the position to itself. not just adding 1 or 2
     if (Keyboard::isKeyPressed(controls[0])) { //left
-        _speed = -3.0f * dt;
-        pos.x += _speed;
+        _speed = -2.1f;
+        pos = Vector2f(_speed, pos.y);
     }
     if (Keyboard::isKeyPressed(controls[1])) { //right
-        _speed = 0.10f;
-        pos.x += _speed;
+        _speed = 2.1f;
+        pos = Vector2f(_speed, pos.y);
     }
     if (Keyboard::isKeyPressed(controls[2])) { //up
-        _speed = -3.0f * dt;
-        pos.y += _speed;
+        _speed = -2.1f;
+        pos = Vector2f(pos.x, _speed);
     }
     if (Keyboard::isKeyPressed(controls[3])) { //down
-        _speed = 3.0f * dt;
-        pos.y += _speed;
+        _speed = 2.1f;
+        pos = Vector2f(pos.x, _speed);
     }
-    
     move(pos);
-        Entity::Update(dt);
+    
+    Entity::Update(dt);
 }
 
 Player::Player()
