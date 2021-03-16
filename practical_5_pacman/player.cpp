@@ -3,10 +3,10 @@ using namespace sf;
 using namespace std;
 
 const Keyboard::Key controls[4] = {
-    Keyboard::A,  //player Left
-    Keyboard::D,   //player Right
-    Keyboard::W,   //player up
-    Keyboard::S,    //player down
+	Keyboard::A,  //player Left
+	Keyboard::D,   //player Right
+	Keyboard::W,   //player Up
+    Keyboard::S,    //player Down
 };
 
 void Player::Update(double dt) {
@@ -30,15 +30,14 @@ void Player::Update(double dt) {
         pos = Vector2f(pos.x, _speed);
     }
     move(pos);
-    
+
     Entity::Update(dt);
 }
 
-Player::Player()
-    : _speed(200.0f), Entity(make_unique<CircleShape>(25.f)) {
-    _shape->setFillColor(Color::Magenta);
-    _shape->setOrigin(Vector2f(25.f, 25.f));
-
+Player::Player() : _speed(200.0f), Entity(make_unique<CircleShape>(25.f)) {
+    _shape->setFillColor(Color::Yellow);
+    _shape->setOrigin(Vector2f(15.f, 15.f));
+    setPosition(Vector2f(200, 200));
 }
 
 void Player::Render(sf::RenderWindow& window) const {

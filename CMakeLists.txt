@@ -62,3 +62,9 @@ file(GLOB_RECURSE SOURCES practical_4_Tilemap/*.cpp practical_4_Tilemap/*.h)
 add_executable(PRACTICAL_4_Tilemap ${SOURCES})
 target_include_directories(PRACTICAL_4_Tilemap PRIVATE ${SFML_INCS})
 target_link_libraries(PRACTICAL_4_Tilemap lib_tile_level_loader sfml-graphics)
+
+#### Practical 5 ####
+file(GLOB_RECURSE SOURCES practical_5_pacman/*.cpp practical_5_pacman/*.h)
+add_executable(PRACTICAL_5_pacman ${SOURCES})
+target_include_directories(PRACTICAL_5_pacman PRIVATE ${SFML_INCS})
+target_link_libraries(PRACTICAL_5_pacman lib_tile_level_loader sfml-graphics)
