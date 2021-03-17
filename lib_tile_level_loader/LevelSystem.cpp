@@ -36,7 +36,9 @@ void LevelSystem::loadLevelFile(const std::string& path, float tileSize) {
 
     // Load in file to buffer
     ifstream f(path);
+    std::cout << path;
     if (f.good()) {
+        
         f.seekg(0, std::ios::end);
         buffer.resize(f.tellg());
         f.seekg(0);
@@ -44,13 +46,15 @@ void LevelSystem::loadLevelFile(const std::string& path, float tileSize) {
         f.close();
     }
     else {
+        
+        std::cout << path;
         throw string("Couldn't open level file: ") + path;
     }
 
     std::vector<TILE> temp_tiles;
     for (int i = 0; i < buffer.size(); ++i) {
         const char c = buffer[i];
-        switch (c) {
+         switch (c) {
         case 'w':
             temp_tiles.push_back(WALL);
             break;
@@ -93,8 +97,8 @@ void LevelSystem::loadLevelFile(const std::string& path, float tileSize) {
 
 void LevelSystem::buildSprites() {
     _sprites.clear();
-    for (size_t y = 0; y < LevelSystem::getHeight(_height); ++y) {
-        for (size_t x = 0; x < LevelSystem::getWidth(_width); ++x) {
+    for (size_t y = 0; y < _height; ++y) {
+        for (size_t x = 0; x < _width; ++x) {
             auto s = make_unique<RectangleShape>();
             s->setPosition(getTilePosition({ x, y }));
             s->setSize(Vector2f(_tileSize, _tileSize));

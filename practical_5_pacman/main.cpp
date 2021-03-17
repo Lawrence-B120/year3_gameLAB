@@ -6,21 +6,20 @@
 using namespace sf;
 using namespace std;
 
-//std::unique_ptr<Player> player{ new Player };
-//std::vector<Ghost> ghosts;
-//Ghost ghosts[4];
-std::vector<std::unique_ptr<Ghost>> ghosts;
-
-std::vector<Entity*> entity;
+EntityManager em;
 
 void Load() {
     for (int i = 0; i < 4; i++)
     {
         Ghost* gho = new Ghost();
-        entity.push_back(gho);
+        shared_ptr<Ghost> lul = shared_ptr<Ghost>(gho);
+
+        em.list.push_back(lul);       
     }
     Player* player = new Player();
-    entity.push_back(player);
+
+    shared_ptr<Player> play = shared_ptr<Player>(player);
+    em.list.push_back(play);
 }
 
 int main() {
@@ -40,7 +39,8 @@ int main() {
         for (int i = 0; i < 5; i++)
         {
             //ghosts[i].Update(dt);
-            entity[i]->Update(dt);
+            //entity[i]->Update(dt);
+            em.update(dt);
         }
         window.clear();
         //Render(window);
@@ -49,7 +49,8 @@ int main() {
         for (int i = 0; i < 5; i++)
         {
             //ghosts[i].Render(window);
-            entity[i]->Render(window);
+            //entity[i]->Render(window);
+            em.render(window);
         }
         window.display();
     }
