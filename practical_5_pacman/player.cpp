@@ -34,12 +34,16 @@ void Player::Update(double dt) {
     Entity::Update(dt);
 }
 
-Player::Player() : _speed(200.0f), Entity(make_unique<CircleShape>(25.f)) {
-    _shape->setFillColor(Color::Yellow);
-    _shape->setOrigin(Vector2f(15.f, 15.f));
-    setPosition(Vector2f(200, 200));
-}
+//Player::Player() : _speed(200.0f), Entity(make_unique<CircleShape>(25.f)) {
+//    _shape->setFillColor(Color::Yellow);
+//    _shape->setOrigin(Vector2f(15.f, 15.f));
+//    setPosition(Vector2f(200, 200));
+//    //auto d = _shape.get();
+//}
+//
+////const std::unique_ptr<sf::Shape> Player::getShape() { return _shape; }
+//
+//void Player::Render(sf::RenderWindow& window) const {
+//    window.draw(*_shape);
+//}
 
-void Player::Render(sf::RenderWindow& window) const {
-    window.draw(*_shape);
-}

@@ -1,5 +1,5 @@
 #pragma once
-#include "entity.h"
+#include "ecm.h"
 
 class Player : public Entity {
 private:
@@ -8,5 +8,6 @@ private:
 public:
 	void Update(double dt) override;
 	Player();
-	void Render(sf::RenderWindow& window) const override;
+	//const std::unique_ptr<sf::Shape> getShape() override;	/////
+	//void Render(sf::RenderWindow& window) const override;
 };

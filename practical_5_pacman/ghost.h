@@ -1,5 +1,5 @@
 #pragma once
-#include "entity.h"
+#include "ecm.h"
 
 class Ghost : public Entity {
 private:
@@ -9,5 +9,5 @@ private:
 public:
 	void Update(double dt) override;
 	Ghost();
-	void Render(sf::RenderWindow& window) const override;
+	//void Render(sf::RenderWindow& window) const override;
 };
