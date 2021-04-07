@@ -129,12 +129,26 @@ LevelSystem::TILE LevelSystem::getTileAt(Vector2f v) {
 
 size_t LevelSystem::getWidth(size_t _width)
 {
-    return size_t();
+    return size_t(); //broken
 }
 
 size_t LevelSystem::getHeight(size_t _height)
 {
-    return size_t();
+    return size_t(); //broken
+}
+
+vector<Vector2ul> LevelSystem::findTiles(ls::TILE t)
+{
+    vector<Vector2ul> returnvar;
+    for (int i = 0; i < (_width * _height); i++)
+    {
+        if (_tiles[i] == t)
+        {
+            returnvar.push_back(Vector2ul(i % _width, (i - (i % _width)) / _width));
+        }
+    }
+
+    return returnvar;
 }
 
 void LevelSystem::Render(RenderWindow& window) {

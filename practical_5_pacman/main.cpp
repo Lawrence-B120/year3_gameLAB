@@ -46,7 +46,7 @@ void Render(RenderWindow& window) {
 }
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "PacMan");
+    sf::RenderWindow window(sf::VideoMode(700, 725), "PacMan");
     static Clock clock;
     float dt = clock.restart().asSeconds();
     Load();

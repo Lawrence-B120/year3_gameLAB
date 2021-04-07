@@ -26,6 +26,7 @@ public:
 
  static size_t getWidth(size_t _width);
  static size_t getHeight(size_t _height);
+ static std::vector<sf::Vector2ul> findTiles(TILE);
  
 protected:
  static std::unique_ptr<TILE[]> _tiles; //Internal array of tiles
