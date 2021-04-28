@@ -27,6 +27,10 @@ public:
 };
 
 class EnemyAIComponent : public ActorMovementComponent {
+protected:
+    sf::Vector2f _direction;
+    enum state { ROAMING, ROTATING, ROTATED };
+    state _state = ROAMING;
 public:
     EnemyAIComponent(Entity* p);
     void update(double dt) override;
