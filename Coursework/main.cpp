@@ -1,10 +1,53 @@
 #include <SFML/Graphics.hpp>
+#include "SystemRenderer.h"
+#include "GameManager.h"
+
+using namespace sf;
+using namespace std;
+
+EntityManager em;
+
+void Load() {
+    /*   for (int i = 0; i < 4; i++)               moved to pacman.cpp
+       {
+           Ghost* gho = new Ghost();
+           shared_ptr<Ghost> lul = shared_ptr<Ghost>(gho);
+
+           em.list.push_back(lul);
+       }
+       Player* player = new Player();
+
+       shared_ptr<Player> play = shared_ptr<Player>(player);
+       em.list.push_back(play);*/
+
+       //instantiating the scenes
+    gameScene.reset(new GameScene());
+    menuScene.reset(new MenuScene());
+    gameScene->load();
+    menuScene->load();
+
+    //start at main menu
+    activeScene = menuScene;
+}
+
+void Update() {
+    static Clock clock;
+    float dt = clock.restart().asSeconds();
+    activeScene->update(dt);
+}
+
+void Render(RenderWindow& window) {
+    activeScene->render();
+    //flush to screen
+    Renderer::render();
+}
 
 int main(){
-  sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-  sf::CircleShape shape(100.f);
-  shape.setFillColor(sf::Color::Green);
-
+  sf::RenderWindow window(sf::VideoMode(1920, 1080), "Vitarca");
+  static Clock clock;
+  float dt = clock.restart().asSeconds();
+  Load();
+  Renderer::initialise(window);
   while (window.isOpen()){
       sf::Event event;
       while (window.pollEvent(event)){
@@ -12,9 +55,11 @@ int main(){
         window.close();
       }
     }
+    Update();
     window.clear();
-    window.draw(shape);
+    Render(window);
     window.display();
   }
   return 0;
 }
+
