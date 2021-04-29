@@ -75,3 +75,9 @@ file(GLOB_RECURSE SOURCES practical_5_pacman/*.cpp practical_5_pacman/*.h)
 add_executable(PRACTICAL_5_pacman ${SOURCES})
 target_include_directories(PRACTICAL_5_pacman PRIVATE ${SFML_INCS})
 target_link_libraries(PRACTICAL_5_pacman lib_tile_level_loader sfml-graphics lib_ecm)
+
+#### Coursework ####
+file(GLOB_RECURSE SOURCES Coursework/*.cpp Coursework/*.h)
+add_executable(Coursework ${SOURCES})
+target_include_directories(Coursework PRIVATE ${SFML_INCS})
+target_link_libraries(Coursework lib_tile_level_loader sfml-graphics lib_ecm)
