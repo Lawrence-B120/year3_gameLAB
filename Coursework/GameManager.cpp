@@ -2,6 +2,7 @@
 #include "MyEcm.h"
 #include "MyLevelSystem.h"
 #include "SystemRenderer.h"
+#include "BGSpriteLoader.h"
 
 using namespace sf;
 using namespace std;
@@ -13,6 +14,8 @@ std::shared_ptr<Scene> activeScene;
 std::shared_ptr<Entity> player;
 std::vector<std::shared_ptr<Entity>> enemy_list;
 std::vector<std::shared_ptr<Entity>> camera_list;
+
+BGSpriteLoader bgSpriteLoader;
 
 sf::Font font;
 sf::Color white = Color(255, 255, 255, 255);
@@ -68,6 +71,7 @@ void GameScene::render() {
 	//}
 
 	lvlSys::Render(Renderer::getWindow());
+	bgSpriteLoader.Render(Renderer::getWindow());
 }
 
 //void GameScene::load() {
@@ -112,5 +116,8 @@ void GameScene::load() {
 
 	//load level
 	lvlSys::loadLevelFile("res/test_level.txt", 60.0f);
+	bgSpriteLoader.ReadSpriteSheet();
+	bgSpriteLoader.Load();
+
 	//respawn();
 }

@@ -10,10 +10,15 @@ size_t LevelSystem::_width;
 size_t LevelSystem::_height;
 Vector2f LevelSystem::_offset(0.0f, 0.0f);
 
+int tileSizeArray = 0;
+std::vector<LevelSystem::TILE> tileCopy;
+
 float LevelSystem::_tileSize(100.f);
 vector<std::unique_ptr<sf::RectangleShape>> LevelSystem::_sprites;
 
 std::map<LevelSystem::TILE, sf::Color> LevelSystem::_colours{ {WALL, Color::White}, {FINISH, Color::Red}, {CAMERA1, Color::Blue},  {CAMERA2, Color::Black}, {CAMERA3, Color::Green}, {CAMERA4, Color::Yellow},{EMPTY, Color::Cyan} };
+
+
 
 sf::Color LevelSystem::getColor(LevelSystem::TILE t) {
     auto it = _colours.find(t);
@@ -114,6 +119,8 @@ void LevelSystem::loadLevelFile(const std::string& path, float tileSize) {
         throw string("Can't parse level file") + path;
     }
     _tiles = std::make_unique<TILE[]>(w * h);
+    tileSizeArray = temp_tiles.size();
+    tileCopy = temp_tiles;
     _width = w; //set static class vars
     _height = h;
     std::copy(temp_tiles.begin(), temp_tiles.end(), &_tiles[0]);
@@ -163,18 +170,29 @@ LevelSystem::TILE LevelSystem::getTileAt(Vector2f v) {
 //used code from PACMAN
 
 //used code from PACMAN
-size_t LevelSystem::getWidth(size_t _width)
+size_t LevelSystem::getWidth()
 {
-    return size_t(); //broken
+    return _width; //broken
 }
 //used code from PACMAN
 
 //used code from PACMAN
-size_t LevelSystem::getHeight(size_t _height)
+size_t LevelSystem::getHeight(size_t height)
 {
-    return size_t(); //broken
+    height = _height;
+    return height; //broken
 }
 //used code from PACMAN
+
+int LevelSystem::GetTileSize()
+{
+    return tileSizeArray;
+}
+
+std::vector<LevelSystem::TILE> LevelSystem::getTileNames()
+{
+    return tileCopy;
+}
 
 //used code from PACMAN
 vector<Vector2ul> LevelSystem::findTiles(lvlSys::TILE t)
@@ -195,7 +213,7 @@ vector<Vector2ul> LevelSystem::findTiles(lvlSys::TILE t)
 //used code from PACMAN
 void LevelSystem::Render(RenderWindow& window) {
     for (size_t i = 0; i < _width * _height; ++i) {
-        window.draw(*_sprites[i]);
+        //window.draw(*_sprites[i]);
     }
 }
 //used code from PACMAN
