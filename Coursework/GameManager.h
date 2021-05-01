@@ -19,6 +19,7 @@ public:
 	void update(double dt) override;
 	void render() override;
 	void load()override;
+	static sf::Font GetFont();
 };
 
 class GameScene : public Scene {

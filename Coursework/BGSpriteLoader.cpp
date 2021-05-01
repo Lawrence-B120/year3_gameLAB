@@ -29,7 +29,6 @@ void BGSpriteLoader::Load()
     //for each tile in the list, how many are of wall or empty etc.
     //want to set the position of all of the sprites
     auto width = lvlSys::getWidth();
-    std::cout << "";
     for (int i = 0; i < tiles.size(); i++)
     {
         if (tiles[i] == lvlSys::WALL)

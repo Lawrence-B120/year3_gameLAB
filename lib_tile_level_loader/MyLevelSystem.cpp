@@ -18,19 +18,17 @@ vector<std::unique_ptr<sf::RectangleShape>> LevelSystem::_sprites;
 
 std::map<LevelSystem::TILE, sf::Color> LevelSystem::_colours{ {WALL, Color::White}, {FINISH, Color::Red}, {CAMERA1, Color::Blue},  {CAMERA2, Color::Black}, {CAMERA3, Color::Green}, {CAMERA4, Color::Yellow},{EMPTY, Color::Cyan} };
 
-
-
-sf::Color LevelSystem::getColor(LevelSystem::TILE t) {
-    auto it = _colours.find(t);
-    if (it == _colours.end()) {
-        _colours[t] = Color::Transparent;
-    }
-    return _colours[t];
-}
-
-void LevelSystem::setColor(LevelSystem::TILE t, sf::Color c) {
-    _colours[t] = c;
-}
+//sf::Color LevelSystem::getColor(LevelSystem::TILE t) {
+//    auto it = _colours.find(t);
+//    if (it == _colours.end()) {
+//        _colours[t] = Color::Transparent;
+//    }
+//    return _colours[t];
+//}
+//
+//void LevelSystem::setColor(LevelSystem::TILE t, sf::Color c) {
+//    _colours[t] = c;
+//}
 //used code from PACMAN
 
 //used code from PACMAN
@@ -125,23 +123,23 @@ void LevelSystem::loadLevelFile(const std::string& path, float tileSize) {
     _height = h;
     std::copy(temp_tiles.begin(), temp_tiles.end(), &_tiles[0]);
     cout << "Level " << path << " Loaded. " << w << "x" << h << std::endl;
-    buildSprites();
+    //buildSprites();
 }
 //used code from PACMAN
 
 //used code from PACMAN
-void LevelSystem::buildSprites() {
-    _sprites.clear();
-    for (size_t y = 0; y < _height; ++y) {
-        for (size_t x = 0; x < _width; ++x) {
-            auto s = make_unique<RectangleShape>();
-            s->setPosition(getTilePosition({ x, y }));
-            s->setSize(Vector2f(_tileSize, _tileSize));
-            s->setFillColor(getColor(getTile({ x, y })));
-            _sprites.push_back(move(s));
-        }
-    }
-}
+//void LevelSystem::buildSprites() {
+//    _sprites.clear();
+//    for (size_t y = 0; y < _height; ++y) {
+//        for (size_t x = 0; x < _width; ++x) {
+//            auto s = make_unique<RectangleShape>();
+//            s->setPosition(getTilePosition({ x, y }));
+//            s->setSize(Vector2f(_tileSize, _tileSize));
+//            s->setFillColor(getColor(getTile({ x, y })));
+//            _sprites.push_back(move(s));
+//        }
+//    }
+//}
 //used code from PACMAN
 
 //used code from PACMAN
@@ -151,23 +149,23 @@ Vector2f LevelSystem::getTilePosition(Vector2ul p) {
 //used code from PACMAN
 
 //used code from PACMAN
-LevelSystem::TILE LevelSystem::getTile(Vector2ul p) {
-    if (p.x > _width || p.y > _height) {
-        throw string("Tile out of range: ") + to_string(p.x) + "," + to_string(p.y) + ")";
-    }
-    return _tiles[(p.y * _width) + p.x];
-}
+//LevelSystem::TILE LevelSystem::getTile(Vector2ul p) {
+//    if (p.x > _width || p.y > _height) {
+//        throw string("Tile out of range: ") + to_string(p.x) + "," + to_string(p.y) + ")";
+//    }
+//    return _tiles[(p.y * _width) + p.x];
+//}
 //used code from PACMAN
 
-//used code from PACMAN
-LevelSystem::TILE LevelSystem::getTileAt(Vector2f v) {
-    auto a = v - _offset;
-    if (a.x < 0 || a.y < 0) {
-        throw string("Tile out of range ");
-    }
-    return getTile(Vector2ul((v - _offset) / (_tileSize)));
-}
-//used code from PACMAN
+////used code from PACMAN
+//LevelSystem::TILE LevelSystem::getTileAt(Vector2f v) {
+//    auto a = v - _offset;
+//    if (a.x < 0 || a.y < 0) {
+//        throw string("Tile out of range ");
+//    }
+//    return getTile(Vector2ul((v - _offset) / (_tileSize)));
+//}
+////used code from PACMAN
 
 //used code from PACMAN
 size_t LevelSystem::getWidth()
@@ -177,11 +175,11 @@ size_t LevelSystem::getWidth()
 //used code from PACMAN
 
 //used code from PACMAN
-size_t LevelSystem::getHeight(size_t height)
-{
-    height = _height;
-    return height; //broken
-}
+//size_t LevelSystem::getHeight(size_t height)
+//{
+//    height = _height;
+//    return height; //broken
+//}
 //used code from PACMAN
 
 int LevelSystem::GetTileSize()
@@ -195,25 +193,25 @@ std::vector<LevelSystem::TILE> LevelSystem::getTileNames()
 }
 
 //used code from PACMAN
-vector<Vector2ul> LevelSystem::findTiles(lvlSys::TILE t)
-{
-    vector<Vector2ul> returnvar;
-    for (int i = 0; i < (_width * _height); i++)
-    {
-        if (_tiles[i] == t)
-        {
-            returnvar.push_back(Vector2ul(i % _width, (i - (i % _width)) / _width));
-        }
-    }
-
-    return returnvar;
-}
+//vector<Vector2ul> LevelSystem::findTiles(lvlSys::TILE t)
+//{
+//    vector<Vector2ul> returnvar;
+//    for (int i = 0; i < (_width * _height); i++)
+//    {
+//        if (_tiles[i] == t)
+//        {
+//            returnvar.push_back(Vector2ul(i % _width, (i - (i % _width)) / _width));
+//        }
+//    }
+//
+//    return returnvar;
+//}
 //used code from PACMAN
 
 //used code from PACMAN
-void LevelSystem::Render(RenderWindow& window) {
-    for (size_t i = 0; i < _width * _height; ++i) {
-        //window.draw(*_sprites[i]);
-    }
-}
+//void LevelSystem::Render(RenderWindow& window) {
+//    for (size_t i = 0; i < _width * _height; ++i) {
+//        //window.draw(*_sprites[i]);
+//    }
+//}
 //used code from PACMAN

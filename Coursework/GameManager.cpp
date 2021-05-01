@@ -3,6 +3,10 @@
 #include "MyLevelSystem.h"
 #include "SystemRenderer.h"
 #include "BGSpriteLoader.h"
+#include "button.h"
+
+//have a menu that allows you to use the mouse and click on a level to then load that level and play it.
+//menu with mouse support, buttons to click on, then a system to load a specific text file as the level.
 
 using namespace sf;
 using namespace std;
@@ -16,6 +20,9 @@ std::vector<std::shared_ptr<Entity>> enemy_list;
 std::vector<std::shared_ptr<Entity>> camera_list;
 
 BGSpriteLoader bgSpriteLoader;
+std::vector<Button> buttons;
+int buttonCount = 3;
+std::vector<Text> buttonText;
 
 sf::Font font;
 sf::Color white = Color(255, 255, 255, 255);
@@ -35,21 +42,54 @@ void MenuScene::update(double dt) {
 	}
 	Scene::update(dt);
 	text.setString("MainMenu");
+
+	//check for button input,
+	//can get character length of string and character size from load method, also can set a position, this could be bounds for buttons
+
+	//check mouse position,
+	//check if mouse click
+}
+
+sf::Font MenuScene::GetFont()
+{
+	return font;
 }
 
 void MenuScene::render() {
 	Renderer::queue(&text);
 	Scene::render();
+	for (int i = 0; i < buttonCount; i++)
+	{
+		buttons[i].render(Renderer::getWindow());
+		//buttons[i].render();
+		
+	}
+	
 }
 
 void MenuScene::load() {
 	// Load font-face from res dir
 	font.loadFromFile("res/fonts/PressStart2P-Regular.ttf");
 	// Set text element to use font
-	text.setFont(font);
-	text.setColor(white);
-	// set the character size to 24 pixels
-	text.setCharacterSize(24);
+	//text.setFont(font);
+	//text.setColor(white);
+	//// set the character size to 24 pixels
+	//text.setCharacterSize(24);
+	////text.setPosition(Vector2f(window.getSize().x / 2, window.getSize().y / 2));
+	//
+	//text.setPosition(Vector2f(200, 400));
+	for (int i = 0; i < buttonCount; i++)
+	{
+		buttons.push_back(Button());
+		buttonText.push_back(Text());
+		buttonText[i].setFont(font);
+		buttonText[i].setColor(white);
+		buttonText[i].setCharacterSize(24);
+		buttonText[i].setString("Level-" + (i+1));
+		
+		buttons[i].setPos(Vector2f(100, i * 100));
+		buttons[i].load(buttonText[i].getString());
+	}
 }
 
 void GameScene::update(double dt) {
@@ -70,7 +110,7 @@ void GameScene::render() {
 	//	_ents.list[i]->Render();
 	//}
 
-	lvlSys::Render(Renderer::getWindow());
+	//lvlSys::Render(Renderer::getWindow());
 	bgSpriteLoader.Render(Renderer::getWindow());
 }
 
