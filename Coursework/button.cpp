@@ -5,41 +5,36 @@
 using namespace sf;
 using namespace std;
 
-sf::Color white2 = Color(255, 255, 255, 255);
-string textToString;
-void Button::load(string s) {
-	//gets the currently loaded font type
-	sf::Font fontType = MenuScene::GetFont();
+float timer = 0.0f;
 
-	_text.setFont(fontType);
-	_text.setColor(white2);
-	_text.setCharacterSize(24);
-	_text.setString(s);
-	textToString = _text.getString();
-	auto xLength = textToString.length() * _text.getCharacterSize();
-	_rect = IntRect(_position.x, _position.y, xLength, _text.getCharacterSize());
+void Button::load(Color c, int cs, string s, Vector2f p, Font f) {
+	_color = c;
+	_charSize = cs;
+	_string = s;
+	_position = p;
+	_font = f;
+
+	auto xLength = _string.length() * _charSize;
+	_rect = IntRect(_position.x, _position.y, xLength, _charSize);
 }
 
-//void Button::setPos(Vector2f pos) {
-//	_position = pos; 
-//}
-//
-//void Button::setText(Text t) {
-//	t = _text;
-//}
 void Button::update(double dt, RenderWindow& window) {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) 
-		&& _rect.contains(static_cast<sf::Vector2i>(sf::Mouse::getPosition(window))))
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)
+		&& _rect.contains(static_cast<sf::Vector2i>(sf::Mouse::getPosition(window))) && timer <= 0.0f)
 	{
 		std::cout << "mouse click";
+		timer = 100.0f;
 	}
+	timer--;
 }
 
-void Button::render(RenderWindow& window) {
-	window.draw(_text);
-	//Renderer::queue(&_text);
+void Button::render() {
+	Text rendertext;
+	//rendertext.setFont(_font);
+	rendertext.setColor(_color);
+	rendertext.setCharacterSize(_charSize);
+	rendertext.setString(_string);
+	rendertext.setPosition(_position);
+	rendertext.setFont(_font);
+	Renderer::getWindow().draw(rendertext);
 }
-//void Button::Render(RenderWindow& window)
-//{
-//	window.draw(_text);
-//}
