@@ -5,7 +5,7 @@
 using namespace sf;
 using namespace std;
 
-float timer = 0.0f;
+bool mousethis, mouselast;
 
 void Button::load(Color c, int cs, string s, Vector2f p, Font f) {
 	_color = c;
@@ -19,18 +19,25 @@ void Button::load(Color c, int cs, string s, Vector2f p, Font f) {
 }
 
 void Button::update(double dt, RenderWindow& window) {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)
-		&& _rect.contains(static_cast<sf::Vector2i>(sf::Mouse::getPosition(window))) && timer <= 0.0f)
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		mousethis = true;
+	}
+	else
+	{
+		mousethis = false;
+	}
+
+	if (mousethis && !mouselast
+		&& _rect.contains(static_cast<sf::Vector2i>(sf::Mouse::getPosition(window))))
 	{
 		std::cout << "mouse click";
-		timer = 100.0f;
 	}
-	timer--;
+	mouselast = mousethis;
 }
 
 void Button::render() {
 	Text rendertext;
-	//rendertext.setFont(_font);
 	rendertext.setColor(_color);
 	rendertext.setCharacterSize(_charSize);
 	rendertext.setString(_string);

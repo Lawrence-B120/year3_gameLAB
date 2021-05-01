@@ -25,8 +25,6 @@ BGSpriteLoader bgSpriteLoader;
 std::vector<Button> buttons;
 int buttonCount = 3;
 
-std::vector<Text> ass;
-
 sf::Font font;
 sf::Color white = Color(255, 255, 255, 255);
 
@@ -46,11 +44,6 @@ void MenuScene::update(double dt) {
 	Scene::update(dt);
 	text.setString("MainMenu");
 
-	//check for button input,
-	//can get character length of string and character size from load method, also can set a position, this could be bounds for buttons
-
-	//check mouse position,
-	//check if mouse click
 	for (int i = 0; i < buttonCount; i++)
 	{
 		buttons[i].update(dt, Renderer::getWindow());
@@ -63,8 +56,6 @@ sf::Font MenuScene::GetFont()
 }
 
 void MenuScene::render() {
-	//Renderer::queue(&text);
-	
 	for (int i = 0; i < buttonCount; i++)
 	{
 		buttons[i].render();
@@ -73,7 +64,6 @@ void MenuScene::render() {
 }
 
 void MenuScene::load() {
-	// Load font-face from res dir
 	font.loadFromFile("res/fonts/PressStart2P-Regular.ttf");
 	////text.setPosition(Vector2f(window.getSize().x / 2, window.getSize().y / 2));
 
