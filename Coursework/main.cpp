@@ -26,6 +26,12 @@ void Load() {
     gameScene->load();
     menuScene->load();
 
+    //levelScenes.reset(new LvlScenes());
+    //levelScenes->load();
+    ////lvl1Scene.reset(new Level1());
+    ////lvl2Scene.reset(new Level2());
+    ////lvl1Scene->load();
+    ////lvl2Scene->load();
     //start at main menu
     activeScene = menuScene;
 }

@@ -2,7 +2,6 @@
 class Scene {
 public:
 	Scene() = default;
-
 	virtual ~Scene() = default;
 	virtual void update(double dt);
 	virtual void render();

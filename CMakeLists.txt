@@ -22,6 +22,20 @@ add_library(lib_tile_level_loader STATIC ${SOURCE_FILES})
 target_include_directories(lib_tile_level_loader INTERFACE "${CMAKE_SOURCE_DIR}/lib_tile_level_loader/" )
 target_link_libraries(lib_tile_level_loader lib_maths sfml-graphics)
 
+# B2D - Box2D phyics library
+add_subdirectory("lib/b2d/Box2D")
+#include_directories("lib/b2d/Box2D/")
+set(B2D_INCS "lib/b2d/Box2D/")
+link_directories("${CMAKE_BINARY_DIR}/lib/sfml/lib")
+
+file(GLOB_RECURSE RESOURCE_FILES "res/*.*")
+####ENGINE
+file(GLOB_RECURSE SOURCE_FILES lib_engine/*.cpp lib_engine/*.h)
+add_library(lib_engine STATIC ${SOURCE_FILES} ${RESOURCE_FILES})
+target_include_directories(lib_engine INTERFACE "${CMAKE_SOURCE_DIR}/lib_engine/" PUBLIC SYSTEM ${B2D_INCS} )
+target_link_libraries(lib_engine lib_tile_level_loader lib_maths lib_ecm Box2D sfml-graphics sfml-audio)
+
+
 ##ECM
 file(GLOB_RECURSE SOURCE_FILES lib_ecm/*.cpp lib_ecm/*.h)
 add_library(lib_ecm STATIC ${SOURCE_FILES})
@@ -31,7 +45,7 @@ target_link_libraries(lib_ecm PRIVATE lib_maths)
 # Maths lib
 add_library(lib_maths INTERFACE)
 target_sources(lib_maths INTERFACE "${CMAKE_SOURCE_DIR}/lib_maths/maths.h")
-target_include_directories(lib_maths INTERFACE "${CMAKE_SOURCE_DIR}/lib_maths" SYSTEM INTERFACE ${SFML_INCS})
+target_include_directories(lib_maths INTERFACE "${CMAKE_SOURCE_DIR}/lib_maths" INTERFACE ${SFML_INCS})
 
 add_custom_target(copy_resources ALL COMMAND ${CMAKE_COMMAND} 
   -E copy_directory
@@ -75,6 +89,25 @@ file(GLOB_RECURSE SOURCES practical_5_pacman/*.cpp practical_5_pacman/*.h)
 add_executable(PRACTICAL_5_pacman ${SOURCES})
 target_include_directories(PRACTICAL_5_pacman PRIVATE ${SFML_INCS})
 target_link_libraries(PRACTICAL_5_pacman lib_tile_level_loader sfml-graphics lib_ecm)
+
+## Practical 6 Physics
+file(GLOB_RECURSE SOURCES practical_6_physics/*.cpp practical_6_physics/*.h)
+add_executable(practical_6_physics ${SOURCES})
+target_include_directories(practical_6_physics SYSTEM PRIVATE ${SFML_INCS} ${B2D_INCS})
+target_link_libraries(practical_6_physics Box2D sfml-graphics)
+set(EXECUTABLES ${EXECUTABLES} practical_6_physics)
+
+
+#### Practical 7 Platformer ####
+file(GLOB_RECURSE SOURCES practical_6_platformer/*.cpp practical_6_platformer/*.h)
+file(GLOB_RECURSE CMPNTS practical_6_platformer/components/*.cpp practical_6_platformer/components/*.h)
+file(GLOB_RECURSE SCENES practical_6_platformer/scenes/*.cpp practical_6_platformer/scenes/*.h)
+add_executable(PRACTICAL_6_PLATFORMER ${SOURCES} ${RESOURCE_FILES})
+source_group("components" FILES ${CMPNTS})
+source_group("resources" FILES ${RESOURCE_FILES})
+#target_include_directories(PRACTICAL_6_PLATFORMER SYSTEM PRIVATE ${SFML_INCS} ${B2D_INCS})
+target_link_libraries(PRACTICAL_6_PLATFORMER lib_engine)
+set(EXECUTABLES ${EXECUTABLES} PRACTICAL_6_PLATFORMER)
 
 #### Coursework ####
 file(GLOB_RECURSE SOURCES Coursework/*.cpp Coursework/*.h)
